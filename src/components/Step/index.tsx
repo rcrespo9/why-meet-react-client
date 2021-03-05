@@ -18,8 +18,7 @@ function Step({ isFirstStep }: StepProps) {
   useEffect(() => {
     const fetchStep = async (): Promise<void> => {
       try {
-        const baseStepsUrl = '/steps'
-        const stepUrl = isFirstStep ? `${baseStepsUrl}/?is_first_step=True` : `${baseStepsUrl}/${stepId}`
+        const stepUrl = isFirstStep ? 'first-step/1' : `steps/${stepId}`
         const response = await fetch(stepUrl);
         const stepData = await response.json()
         setStepData(stepData)
