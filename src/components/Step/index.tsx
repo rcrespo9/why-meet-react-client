@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import fetch from 'isomorphic-fetch'
 import StepQuestion from './StepQuestion'
 import StepChoice from './StepChoice'
 import IStep from '../../interfaces/IStep'
@@ -18,7 +19,7 @@ function Step({ isFirstStep }: StepProps) {
     const fetchStep = async (): Promise<void> => {
       try {
         const baseStepsUrl = '/steps'
-        const stepUrl = isFirstStep ? `${baseStepsUrl}?is_first_step=True` : `${baseStepsUrl}/${stepId}`
+        const stepUrl = isFirstStep ? `${baseStepsUrl}/?is_first_step=True` : `${baseStepsUrl}/${stepId}`
         const response = await fetch(stepUrl);
         const stepData = await response.json()
         setStepData(stepData)
