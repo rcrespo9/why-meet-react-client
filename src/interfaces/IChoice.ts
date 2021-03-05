@@ -1,7 +1,6 @@
-export default interface Choice {
-  text: string
+export default interface IChoice {
+  id: number
   answer: string
   additional_answer_text: string | null
-  step: number
   next_step: number
 }
