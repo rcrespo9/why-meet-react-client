@@ -15,20 +15,20 @@ function Step({ isFirstStep }: StepProps) {
   let { stepId } = useParams<{ stepId: string }>();
 
   useEffect(() => {
-    fetchStep()
-  }, []);
-
-  const fetchStep = async (): Promise<void> => {
-    try {
-      const baseStepsUrl = '/steps'
-      const stepUrl = isFirstStep ? `${baseStepsUrl}&is_first_step=True` : `${baseStepsUrl}/${stepId}`
-      const response = await fetch(stepUrl);
-      const stepData = await response.json()
-      setStepData(stepData)
-    } catch (error) {
-      throw new Error(error)
+    const fetchStep = async (): Promise<void> => {
+      try {
+        const baseStepsUrl = '/steps'
+        const stepUrl = isFirstStep ? `${baseStepsUrl}?is_first_step=True` : `${baseStepsUrl}/${stepId}`
+        const response = await fetch(stepUrl);
+        const stepData = await response.json()
+        setStepData(stepData)
+      } catch (error) {
+        throw new Error(error)
+      }
     }
-  }
+
+    fetchStep()
+  }, [isFirstStep, stepId]);
 
   if (step) {
     return (
