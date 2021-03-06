@@ -48,20 +48,41 @@ function Step({ isFirstStep }: StepProps) {
   if (step && !isLoading) {
     return (
       <>
-        {step.final_step
-          ? <StepQuestion text={`${step.final_step.should_go_to_meeting ? "Go!" : "Don't go!"} ${step.text}`} />
-          : <StepQuestion text={step.text} />
-        }
-        
-        {(step.choices) && 
-          step.choices.map((choice: IChoice) => <StepChoice key={choice.id} id={choice.id} answer={choice.answer} additional_answer_text={choice.additional_answer_text} next_step={choice.next_step} stepChangeEvent={onStepChoiceChange} />)
-        }
+        {step.final_step ? (
+          <StepQuestion
+            text={`${
+              step.final_step.should_go_to_meeting ? "Go!" : "Don't go!"
+            } ${step.text}`}
+          />
+        ) : (
+          <StepQuestion text={step.text} />
+        )}
 
-        {stepChoice &&
-          <Link to={stepChoice}>Next Step</Link>
-        }
+        {step.choices &&
+          step.choices.map((choice: IChoice) => (
+            <StepChoice
+              key={choice.id}
+              id={choice.id}
+              answer={choice.answer}
+              additional_answer_text={choice.additional_answer_text}
+              next_step={choice.next_step}
+              stepChangeEvent={onStepChoiceChange}
+            />
+          ))}
+
+        {!isFirstStep && <Link to="#">Previous Step</Link>}
+
+        {stepChoice && <Link to={stepChoice}>Next Step</Link>}
+
+        {step.interstitial_step && (
+          <Link to={step.interstitial_step.next_step.toString()}>
+            Next Step
+          </Link>
+        )}
+
+        {step.final_step && <Link to="/first-step">Reset</Link>}
       </>
-    )
+    );
   } else {
     return <Loading />;
   }
