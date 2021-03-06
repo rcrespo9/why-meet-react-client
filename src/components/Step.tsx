@@ -18,6 +18,8 @@ function Step({ isFirstStep }: StepProps) {
   const location = useLocation()
   let { stepId } = useParams<{ stepId: string }>();
 
+  // TODO: implement previous stepChoices state
+
   useEffect(() => {
     const fetchStep = async (): Promise<void> => {
       setLoadingState(true)
