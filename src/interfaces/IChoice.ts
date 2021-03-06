@@ -3,4 +3,5 @@ export default interface IChoice {
   answer: string
   additional_answer_text: string | null
   next_step: number
+  stepChangeEvent: React.ChangeEventHandler
 }
